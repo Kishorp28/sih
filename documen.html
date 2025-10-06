@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MetroMind - AI-Driven Train Induction Planning</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a56db;
+            --primary-dark: #1e429f;
+            --secondary: #047857;
+            --accent: #dc2626;
+            --light: #f3f4f6;
+            --dark: #1f2937;
+            --gray: #6b7280;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9fafb;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo i {
+            font-size: 2rem;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(26, 86, 219, 0.9), rgba(30, 66, 159, 0.9)), url('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--success);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .cta-button:hover {
+            background-color: #0da271;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Section Styles */
+        section {
+            padding: 5rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Challenge Section */
+        .challenge-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .challenge-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--primary);
+        }
+        
+        .challenge-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .challenge-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .challenge-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        /* Solution Section */
+        .solution {
+            background-color: var(--light);
+        }
+        
+        .architecture-diagram {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            margin-bottom: 3rem;
+        }
+        
+        .architecture-diagram img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* Impact Section */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .metric-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .metric-label {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .metric-desc {
+            color: var(--gray);
+        }
+        
+        .roi-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .roi-table th, .roi-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .roi-table th {
+            background-color: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .roi-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .roi-table tr:hover {
+            background-color: #f9fafb;
+        }
+        
+        /* Roadmap Section */
+        .roadmap {
+            background-color: var(--light);
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--primary);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border: 4px solid var(--primary);
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+        
+        .timeline-item:nth-child(odd)::after {
+            right: -10px;
+        }
+        
+        .timeline-item:nth-child(even)::after {
+            left: -10px;
+        }
+        
+        .timeline-content {
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .timeline-content h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        /* Team Section */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .team-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .team-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .team-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: white;
+            font-size: 2rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 0;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #374151;
+            color: #9ca3af;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .timeline-item::after {
+                left: 21px;
+            }
+            
+            .timeline-item:nth-child(odd)::after, 
+            .timeline-item:nth-child(even)::after {
+                left: 21px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-train"></i>
+                    <h1>MetroMind</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#challenge">Challenge</a></li>
+                        <li><a href="#solution">Solution</a></li>
+                        <li><a href="#impact">Impact</a></li>
+                        <li><a href="#roadmap">Roadmap</a></li>
+                        <li><a href="#team">Team</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>AI-Driven Train Induction Planning & Scheduling</h2>
+            <p>Transforming Kochi Metro's manual operations into an autonomous, data-driven platform that delivers higher fleet availability, reduced costs, and guaranteed service punctuality.</p>
+            <a href="#solution" class="cta-button">Explore Our Solution</a>
+        </div>
+    </section>
+
+    <!-- Challenge Section -->
+    <section id="challenge" class="challenge">
+        <div class="container">
+            <div class="section-title">
+                <h2>The Challenge</h2>
+                <p>Why KMRL needs an intelligent solution for train induction planning</p>
+            </div>
+            <div class="challenge-cards">
+                <div class="challenge-card">
+                    <i class="fas fa-sync-alt"></i>
+                    <h3>Manual Reconciliation</h3>
+                    <p>Fleet information scattered across 6+ siloed systems including spreadsheets, WhatsApp updates, and Maximo logs requires 2+ hours of nightly manual reconciliation.</p>
+                </div>
+                <div class="challenge-card">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>Unscheduled Withdrawals</h3>
+                    <p>Missing a single telecom clearance forces unscheduled rake withdrawals, directly impacting the 99.5% punctuality KPI and passenger experience.</p>
+                </div>
+                <div class="challenge-card">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <h3>Cost Inefficiencies</h3>
+                    <p>Uneven mileage assignment accelerates component fatigue while excessive shunting increases energy consumption and safety risks.</p>
+                </div>
+                <div class="challenge-card">
+                    <i class="fas fa-file-contract"></i>
+                    <h3>SLA Compliance Risks</h3>
+                    <p>Inadequate visibility into branding priorities risks breaching advertiser SLAs, exposing KMRL to significant revenue penalties.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section id="solution" class="solution">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Solution</h2>
+                <p>How MetroMind transforms train induction planning through AI and optimization</p>
+            </div>
+            
+            <div class="architecture-diagram">
+                <h3>System Architecture</h3>
+                <p>MetroMind integrates data from multiple sources and applies intelligent algorithms to generate optimal induction plans.</p>
+                <!-- Placeholder for architecture diagram -->
+                <div style="background: #e5e7eb; height: 300px; display: flex; align-items: center; justify-content: center; border-radius: 8px; margin-top: 1rem;">
+                    <p>System Architecture Diagram Would Appear Here</p>
+                </div>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3><i class="fas fa-brain"></i> Intelligent Optimization</h3>
+                    <p>Multi-objective genetic algorithm that evaluates millions of possible combinations to find the optimal train set selection.</p>
+                </div>
+                <div class="feature-card">
+                    <h3><i class="fas fa-robot"></i> Machine Learning Predictions</h3>
+                    <p>XGBoost models predict failure risks with 92% accuracy, enabling proactive maintenance planning.</p>
+                </div>
+                <div class="feature-card">
+                    <h3><i class="fas fa-project-diagram"></i> Digital Twin</h3>
+                    <p>3D visualization of depot layout with simulation capabilities for shunting operations and what-if analysis.</p>
+                </div>
+                <div class="feature-card">
+                    <h3><i class="fas fa-comment-alt"></i> Explainable AI</h3>
+                    <p>Clear explanations for every decision, building trust with operations teams and enabling informed overrides.</p>
+                </div>
+                <div class="feature-card">
+                    <h3><i class="fas fa-language"></i> Multilingual Chatbot</h3>
+                    <p>Natural language interface in Malayalam and English for quick queries and status updates.</p>
+                </div>
+                <div class="feature-card">
+                    <h3><i class="fas fa-mobile-alt"></i> Real-time Alerts</h3>
+                    <p>Mobile notifications for critical events, schedule changes, and approval workflows.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section id="impact" class="impact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Measurable Impact</h2>
+                <p>Quantifiable benefits and return on investment</p>
+            </div>
+            
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value">120min → 15min</div>
+                    <div class="metric-label">Decision Time</div>
+                    <div class="metric-desc">Nightly planning reduced from 2 hours to 15 minutes</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">99.8%</div>
+                    <div class="metric-label">Punctuality KPI</div>
+                    <div class="metric-desc">From current 99.5% to target 99.8%</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">30%</div>
+                    <div class="metric-label">Energy Savings</div>
+                    <div class="metric-desc">Through optimized shunting operations</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">20%</div>
+                    <div class="metric-label">Component Life</div>
+                    <div class="metric-desc">Extended through balanced mileage distribution</div>
+                </div>
+            </div>
+            
+            <h3 style="text-align: center; margin-bottom: 1.5rem; color: var(--primary);">Financial Impact (Annual Projection)</h3>
+            <table class="roi-table">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Current Cost</th>
+                        <th>With MetroMind</th>
+                        <th>Savings</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Manual Labor</td>
+                        <td>₹85 lakhs</td>
+                        <td>₹25 lakhs</td>
+                        <td>₹60 lakhs</td>
+                    </tr>
+                    <tr>
+                        <td>Unscheduled Maintenance</td>
+                        <td>₹1.2 crores</td>
+                        <td>₹90 lakhs</td>
+                        <td>₹30 lakhs</td>
+                    </tr>
+                    <tr>
+                        <td>Energy Consumption</td>
+                        <td>₹45 lakhs</td>
+                        <td>₹31 lakhs</td>
+                        <td>₹14 lakhs</td>
+                    </tr>
+                    <tr>
+                        <td>SLA Penalties</td>
+                        <td>₹25 lakhs</td>
+                        <td>₹5 lakhs</td>
+                        <td>₹20 lakhs</td>
+                    </tr>
+                    <tr style="font-weight: bold; background-color: #f0f9ff;">
+                        <td>Total</td>
+                        <td>₹2.75 crores</td>
+                        <td>₹1.51 crores</td>
+                        <td>₹1.24 crores</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Roadmap Section -->
+    <section id="roadmap" class="roadmap">
+        <div class="container">
+            <div class="section-title">
+                <h2>Implementation Roadmap</h2>
+                <p>Phased approach to ensure successful deployment and adoption</p>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Phase 1: Foundation (Months 1-3)</h3>
+                        <ul>
+                            <li>Data connector development</li>
+                            <li>Basic optimization engine</li>
+                            <li>Web dashboard MVP</li>
+                            <li>Pilot with 5 trainsets</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Phase 2: Intelligence (Months 4-6)</h3>
+                        <ul>
+                            <li>ML model training and validation</li>
+                            <li>Digital twin integration</li>
+                            <li>Mobile app deployment</li>
+                            <li>Full fleet rollout</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Phase 3: Enhancement (Months 7-9)</h3>
+                        <ul>
+                            <li>Malayalam chatbot integration</li>
+                            <li>Advanced predictive features</li>
+                            <li>Multi-depot support</li>
+                            <li>API ecosystem development</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="team">
+        <div class="container">
+            <div class="section-title">
+                <h2>Team Celeritas</h2>
+                <p>Passionate engineers and data scientists dedicated to solving complex operational challenges</p>
+            </div>
+            
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>Full-Stack Development</h3>
+                    <p>Expertise in React, Node.js, Python and cloud deployment</p>
+                </div>
+                <div class="team-card">
+                    <div class="team-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Data Science & AI</h3>
+                    <p>Specialized in machine learning, optimization algorithms and predictive analytics</p>
+                </div>
+                <div class="team-card">
+                    <div class="team-icon">
+                        <i class="fas fa-train"></i>
+                    </div>
+                    <h3>Domain Expertise</h3>
+                    <p>Deep understanding of metro operations and maintenance workflows</p>
+                </div>
+                <div class="team-card">
+                    <div class="team-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <h3>System Architecture</h3>
+                    <p>Designing scalable, secure and maintainable software solutions</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>MetroMind</h3>
+                    <p>Transforming metro operations from reactive problem-solving to proactive excellence through the power of AI and optimization.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#challenge">The Challenge</a></li>
+                        <li><a href="#solution">Our Solution</a></li>
+                        <li><a href="#impact">Measurable Impact</a></li>
+                        <li><a href="#roadmap">Implementation</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-envelope"></i> team.celeritas@sih2025.com</li>
+                        <li><i class="fas fa-globe"></i> metromind.celeritas.in</li>
+                        <li><i class="fas fa-mobile-alt"></i> Demo: Available on request</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Team Celeritas - Smart India Hackathon 2025. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Add animation to metric cards when they come into view
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe metric cards
+        document.querySelectorAll('.metric-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
